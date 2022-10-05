@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/users', 'UserController@index')->name('userList');
+Route::get('/posts', 'PostController@index')->name('postList');
+Route::get('/todos', 'TodoController@index')->name('todoList');
