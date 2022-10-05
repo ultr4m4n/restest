@@ -26,3 +26,5 @@ Route::get('/post-create-page', 'PostController@createPage')->name('postCreatePa
 Route::post('/post-create', 'PostController@create')->name('postCreate');
 
 Route::get('/todos', 'TodoController@index')->name('todoList');
+Route::get('/todos-create-page', 'TodoController@createPage')->name('todoCreatePage');
+Route::post('/todos-create', 'TodoController@create')->name('todosCreate');
