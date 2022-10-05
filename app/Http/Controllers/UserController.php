@@ -48,13 +48,20 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $ud_response = Http::get('https://gorest.co.in/public/v2/users/'.$id);
+        $user_details = $ud_response->object();
+        
+        if (isset($user_details->message)) {
+            $user_details = false;
+        }
+
         $posts_response = Http::get('https://gorest.co.in/public/v2/users/'.$id.'/posts');
         $posts = $posts_response->object();
 
         $todos_response = Http::get('https://gorest.co.in/public/v2/users/'.$id.'/todos');
         $todos = $todos_response->object();
 
-        return view('users.show', compact('posts', 'todos'));
+        return view('users.show', compact('user_details', 'posts', 'todos'));
     }
 
     /**

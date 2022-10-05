@@ -29,7 +29,7 @@
 							@endforeach
 							<br>
 						@else
-							<p>No users found.</p>
+							<p>User not found.</p>
 						@endif
                     </div>
                 </div>
