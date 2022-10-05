@@ -11,19 +11,20 @@
             <div class="card card-white">
                 <div class="card-body">
                     <div class="todo-list">
+                    	<h2>Post's Comments</h2>
                     	@if($result)
 	                    	@foreach($result as $res)
 		                        <div class="todo-item">
 		                            <span class="">#{{$res->id??null}}</span>
 		                            <br>
-		                            <h4>{{$res->title??null}}</h4>
+		                            <span>{{$res->title??null}}</span>
 		                            <br>
-		                            <a href="/post/{{$res->id??null}}" class="btn btn-primary">View Post</a>
+		                            <p>Comment: {{$res->body??null}}</p>
 		                        </div>
 							@endforeach
 							<br>
 						@else
-							<p>There are currently no post.</p>
+							<p>There are no comment for this post.</p>
 						@endif
                     </div>
                 </div>

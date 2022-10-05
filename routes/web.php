@@ -18,5 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/users', 'UserController@index')->name('userList');
+
 Route::get('/posts', 'PostController@index')->name('postList');
+Route::get('/post/{id}', 'PostController@show')->name('postDetail');
+
 Route::get('/todos', 'TodoController@index')->name('todoList');

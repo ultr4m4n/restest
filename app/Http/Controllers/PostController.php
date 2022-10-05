@@ -48,9 +48,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $response = Http::get('https://gorest.co.in/public/v2/posts/'.$id.'/comments');
+        $result = $response->object();
+        return view('posts.show', compact('result'));
     }
 
     /**
