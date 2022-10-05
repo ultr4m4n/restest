@@ -10,13 +10,8 @@
         <div class="col-md-12">
             <div class="card card-white">
                 <div class="card-body">
-                    <form action="javascript:void(0);">
-                        <input type="text" class="form-control add-task" placeholder="New Task...">
-                    </form>
                     <ul class="nav nav-pills todo-nav">
-                        <li role="presentation" class="nav-item all-task active"><a href="#" class="nav-link">All</a></li>
-                        <li role="presentation" class="nav-item active-task"><a href="#" class="nav-link">Active</a></li>
-                        <li role="presentation" class="nav-item completed-task"><a href="#" class="nav-link">Completed</a></li>
+                        <li role="presentation" class="nav-item"><a href="/todos-create-page" class="btn btn-success">Create Todos</a></li>
                     </ul>
                     <div class="todo-list">
                         @if($result)

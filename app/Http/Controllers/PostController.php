@@ -24,7 +24,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Send post creation to gorest via API.
      *
      * @return \Illuminate\Http\Response
      */
