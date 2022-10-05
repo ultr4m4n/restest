@@ -29,7 +29,6 @@
     	                            <span>Status: {{$res->status??null}}</span>
     	                            <br>
     	                            <span>Due date: {{date('d/m/Y', strtotime($res->due_on))??null}}</span>
-    	                            <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a>
     	                        </div>
     						@endforeach
     						<br>

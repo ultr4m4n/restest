@@ -23,7 +23,8 @@
 		                            <span>Gender: {{$res->gender??null}}</span>
 		                            <br>
 		                            <span>Status: {{$res->status??null}}</span>
-		                            <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a>
+		                            <br>
+		                            <a href="/user/{{$res->id??null}}" class="btn btn-primary">View User Details</a>
 		                        </div>
 							@endforeach
 							<br>
