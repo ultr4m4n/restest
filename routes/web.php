@@ -22,5 +22,7 @@ Route::get('/user/{id}', 'UserController@show')->name('userDetail');
 
 Route::get('/posts', 'PostController@index')->name('postList');
 Route::get('/post/{id}', 'PostController@show')->name('postDetail');
+Route::get('/post-create-page', 'PostController@createPage')->name('postCreatePage');
+Route::post('/post-create', 'PostController@create')->name('postCreate');
 
 Route::get('/todos', 'TodoController@index')->name('todoList');

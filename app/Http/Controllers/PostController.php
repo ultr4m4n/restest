@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class PostController extends Controller
@@ -16,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $response = Http::get('https://gorest.co.in/public/v2/posts');
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                    ->get('https://gorest.co.in/public/v2/posts');
         $result = $response->object();
         return view('posts.index', compact('result'));
     }
@@ -26,20 +28,37 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $this->validate($request, [
+            'user_id'          => 'required|numeric',
+            'post_title'         => 'required|string|max:100',
+            'post_content'         => 'required|string|max:255',
+        ]);
+
+        $post_array = array('user_id' => $request->user_id,
+                            'title' => $request->post_title, 
+                            'body' => $request->post_content );
+
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                    ->post('https://gorest.co.in/public/v2/users/'.$request->user_id.'/posts', $post_array);
+
+        if ($response->ok() && isset($response->id)) {
+            return redirect()->back()->with('message', 'Succesful!');
+        } else {
+            return redirect()->back()->with('error', 'Failed!');
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Return create post page.
      *
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function createPage()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -50,7 +69,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $response = Http::get('https://gorest.co.in/public/v2/posts/'.$id.'/comments');
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                    ->get('https://gorest.co.in/public/v2/posts/'.$id.'/comments');
         $result = $response->object();
         return view('posts.show', compact('result'));
     }
