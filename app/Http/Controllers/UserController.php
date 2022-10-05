@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $response = Http::get('https://gorest.co.in/public/v2/users');
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                        ->get('https://gorest.co.in/public/v2/users');
         $result = $response->object();
         return view('users.index', compact('result'));
     }
@@ -48,17 +49,20 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $ud_response = Http::get('https://gorest.co.in/public/v2/users/'.$id);
+        $ud_response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                        ->get('https://gorest.co.in/public/v2/users/'.$id);
         $user_details = $ud_response->object();
         
         if (isset($user_details->message)) {
             $user_details = false;
         }
 
-        $posts_response = Http::get('https://gorest.co.in/public/v2/users/'.$id.'/posts');
+        $posts_response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                            ->get('https://gorest.co.in/public/v2/users/'.$id.'/posts');
         $posts = $posts_response->object();
 
-        $todos_response = Http::get('https://gorest.co.in/public/v2/users/'.$id.'/todos');
+        $todos_response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                            ->get('https://gorest.co.in/public/v2/users/'.$id.'/todos');
         $todos = $todos_response->object();
 
         return view('users.show', compact('user_details', 'posts', 'todos'));

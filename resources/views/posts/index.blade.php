@@ -10,6 +10,9 @@
         <div class="col-md-12">
             <div class="card card-white">
                 <div class="card-body">
+                    <ul class="nav nav-pills todo-nav">
+                        <li role="presentation" class="nav-item"><a href="/post-create-page" class="btn btn-success">Create Post</a></li>
+                    </ul>
                     <div class="todo-list">
                     	@if($result)
 	                    	@foreach($result as $res)
