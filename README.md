@@ -13,7 +13,7 @@ php artisan key:generate
 A simple application that display list of users with their todos & posts with comments. User can create post & todos as well.
 
 # Pages & Features
-1. Welcome page-homepage
+1. Welcome page- Display homepage.
 3. Users list page- To list all users & display delete user button.
     - user detail page- To view users details, posts & todos. Can also update selected user here.
     - create user page- To display a form that allow user to create new user.
