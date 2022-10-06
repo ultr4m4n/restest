@@ -10,6 +10,9 @@
         <div class="col-md-12">
             <div class="card card-white">
                 <div class="card-body">
+                    <ul class="nav nav-pills todo-nav">
+                        <li role="presentation" class="nav-item"><a href="/user-create-page" class="btn btn-success">Create User</a></li>
+                    </ul>
                     <div class="todo-list">
                     	@if($result)
 	                    	@foreach($result as $res)
@@ -25,6 +28,7 @@
 		                            <span>Status: {{$res->status??null}}</span>
 		                            <br>
 		                            <a href="/user/{{$res->id??null}}" class="btn btn-primary">View User Details</a>
+		                            <a href="/user-delete/{{$res->id??null}}" class="btn btn-danger">Delete User</a>
 		                        </div>
 							@endforeach
 							<br>
