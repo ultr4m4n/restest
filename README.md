@@ -14,11 +14,11 @@ A simple application that display list of users with their todos & posts with co
 
 # Pages & Features
 1. Welcome page-homepage
-3. Users list page-to list all users & display delete user button.
-    - user detail page-to view users details, posts & todos. Can also update selected user here.
-    - create user page-to display a form that allow user to create new user.
+3. Users list page- To list all users & display delete user button.
+    - user detail page- To view users details, posts & todos. Can also update selected user here.
+    - create user page- To display a form that allow user to create new user.
 4. Todos list page
-    - create todos page-to display a form that allow user to create new todos.
+    - create todos page- To display a form that allow user to create new todos.
 5. Posts list page
-    - view post page
-    - create post page-to display a form that allow user to create new post.
+    - view post page- To display all comments related to the selected post.
+    - create post page- To display a form that allow user to create new post.
