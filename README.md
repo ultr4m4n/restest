@@ -1,7 +1,7 @@
 # Restest
 
 # Installation
-First clone this repository, install the dependencies, and setup your .env file.
+First clone this repository, install the dependencies, and setup your .env file. . Finally generate the key.
 
 ```
 git@github.com:ultr4m4n/restest.git
