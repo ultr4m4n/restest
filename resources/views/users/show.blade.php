@@ -6,17 +6,17 @@
 
 @section('content')
 <div class="container">
-    {{-- @if($user_details) --}}
+    @if($user_details)
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-white">
                     <div class="card-body">
                         <ul class="nav nav-pills todo-nav">
-                            <li role="presentation" class="nav-item"><a href="/user-create-page" class="btn btn-success">User Details</a></li>
+                            <li role="presentation" class="nav-item"><h4>User Details<h4></li>
                         </ul>
                         <div class="todo-list">
                             <div class="todo-item">
-                                <form method="post" enctype="multipart/form-data" action="{{ route ('userUpdate', ['id' => $user_details->id??1 ]) }}">
+                                <form method="post" enctype="multipart/form-data" action="{{ route ('userUpdate', ['id' => $user_details->id??0 ]) }}">
                                   {{ csrf_field() }} {{ method_field('POST') }}
                                   <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -28,7 +28,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                       <label for="user_email">Email</label>
-                                      <input type="text" class="form-control" name="user_email" placeholder="{{$user_details->email??null}}" class="@error('user_email') is-invalid @enderror" required>
+                                      <input type="text" class="form-control" name="user_email" value="{{$user_details->email??null}}" class="@error('user_email') is-invalid @enderror" required>
                                       @error('user_email')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
@@ -117,9 +117,11 @@
                 </div>
             </div>
         </div>
-    {{-- @else --}}
-        <!-- <p>No user found.</p> -->
-    {{-- @endif --}}
+     @else
+        <div style="padding: 15px">
+            <p class="text-center">User not found.</p>
+        </div>
+    @endif
 </div>
 @endsection
 
