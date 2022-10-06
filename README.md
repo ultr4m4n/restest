@@ -1,6 +1,6 @@
-# restest
+# Restest
 
-#Installation
+# Installation
 First clone this repository, install the dependencies, and setup your .env file.
 
 ```
@@ -9,4 +9,5 @@ composer install
 cp .env.example .env
 php artisan key:generate
 ```
-#Feature
+# Description
+A simple application that display list of users with their todos & posts with comments. User can create post & todos as well.
