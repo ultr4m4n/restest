@@ -21,24 +21,43 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Send users creation to gorest via API.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $this->validate($request, [
+            'user_name'          => 'required|string|max:100',
+            'user_email'         => 'required|email|max:100',
+            'user_gender'         => 'required|string|max:10',
+            'user_status'         => 'required|string|max:10',
+        ]);
+
+        $user_array = array('name' => $request->user_name,
+                            'email' => $request->user_email, 
+                            'gender' => $request->user_gender, 
+                            'status' => $request->user_status );
+
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                    ->post('https://gorest.co.in/public/v2/users/', $user_array);
+
+        if ($response->ok() && isset($response->id)) {
+            return redirect()->back()->with('message', 'Succesful!');
+        } else {
+            return redirect()->back()->with('error', 'Failed!');
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Return create user page.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTodoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createPage()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -69,36 +88,50 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Send users update to gorest via API.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'user_name'          => 'required|string|max:100',
+            'user_email'         => 'required|email|max:100',
+            'user_gender'         => 'required|string|max:10',
+            'user_status'         => 'required|string|max:10',
+        ]);
+
+        $user_array = array('name' => $request->user_name,
+                            'email' => $request->user_email, 
+                            'gender' => $request->user_gender, 
+                            'status' => $request->user_status );
+
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                    ->put('https://gorest.co.in/public/v2/users/'.$id, $user_array);
+
+        if ($response->ok() && isset($response->id)) {
+            return redirect()->back()->with('message', 'Succesful!');
+        } else {
+            return redirect()->back()->with('error', 'Failed!');
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Send users delete to gorest via API.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
+                    ->delete('https://gorest.co.in/public/v2/users/'.$id);
+
+        if ($response->ok()) {
+            return redirect()->back()->with('message', 'Succesful!');
+        } else {
+            return redirect()->back()->with('error', 'Failed!');
+        }
     }
 }

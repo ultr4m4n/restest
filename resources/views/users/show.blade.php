@@ -6,22 +6,59 @@
 
 @section('content')
 <div class="container">
-    @if($user_details)
+    {{-- @if($user_details) --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-white">
                     <div class="card-body">
+                        <ul class="nav nav-pills todo-nav">
+                            <li role="presentation" class="nav-item"><a href="/user-create-page" class="btn btn-success">User Details</a></li>
+                        </ul>
                         <div class="todo-list">
                             <div class="todo-item">
-                                <span class="">#{{$user_details->id??null}}</span>
-                                <br>
-                                <span>Name: {{$user_details->name??null}}</span>
-                                <br>
-                                <span>Email: {{$user_details->email??null}}</span>
-                                <br>
-                                <span>Gender: {{$user_details->gender??null}}</span>
-                                <br>
-                                <span>Status: {{$user_details->status??null}}</span>
+                                <form method="post" enctype="multipart/form-data" action="{{ route ('userUpdate', ['id' => $user_details->id??1 ]) }}">
+                                  {{ csrf_field() }} {{ method_field('POST') }}
+                                  <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                      <label for="user_name">Name</label>
+                                      <input type="text" class="form-control" name="user_name" value="{{$user_details->name??null}}" class="@error('user_name') is-invalid @enderror" required>
+                                      @error('user_name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="user_email">Email</label>
+                                      <input type="text" class="form-control" name="user_email" placeholder="{{$user_details->email??null}}" class="@error('user_email') is-invalid @enderror" required>
+                                      @error('user_email')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="user_gender">Gender</label>
+                                      <select name="user_gender" class="form-control">
+                                        <option selected="">{{$user_details->gender??null}}</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                      </select>
+                                      @error('user_gender')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="user_status">Status</label>
+                                      <select name="user_status" class="form-control">
+                                        <option selected="">{{$user_details->status??null}}</option>
+                                        <option>active</option>
+                                        <option>inactive</option>
+                                      </select>
+                                      @error('user_status')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <button type="submit" class="btn btn-primary">Update</button>
+                                </form>                                
                             </div>
                         </div>
                     </div>
@@ -80,9 +117,9 @@
                 </div>
             </div>
         </div>
-    @else
-        <p>No user found.</p>
-    @endif
+    {{-- @else --}}
+        <!-- <p>No user found.</p> -->
+    {{-- @endif --}}
 </div>
 @endsection
 
