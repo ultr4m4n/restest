@@ -1,7 +1,9 @@
 body{
     background: #f8f8f8;
 }
-
+.container {
+    padding-top: 10px;
+}
 .todo-nav {
     margin-top: 10px
 }

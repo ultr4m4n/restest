@@ -28,7 +28,7 @@
 		                            <span>Status: {{$res->status??null}}</span>
 		                            <br>
 		                            <a href="/user/{{$res->id??null}}" class="btn btn-primary">View User Details</a>
-		                            <a href="/user-delete/{{$res->id??null}}" class="btn btn-danger">Delete User</a>
+		                            <a href="/user-delete/{{$res->id??null}}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete User</a>
 		                        </div>
 							@endforeach
 							<br>

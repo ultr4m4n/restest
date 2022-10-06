@@ -20,6 +20,7 @@ class TodoController extends Controller
         $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
                     ->get('https://gorest.co.in/public/v2/todos');
         $result = $response->object();
+        
         return view('todos.index', compact('result'));
     }
 
@@ -30,7 +31,7 @@ class TodoController extends Controller
      */
     public function create(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request, [ // input validation
             'user_id'          => 'required|numeric',
             'todos_title'         => 'required|string|max:100',
             'todos_status'         => 'required|string|max:10',
@@ -45,8 +46,8 @@ class TodoController extends Controller
         $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
                     ->post('https://gorest.co.in/public/v2/users/'.$request->user_id.'/todos', $todos_array);
 
-        if ($response->ok() && isset($response->id)) {
-            return redirect()->back()->with('message', 'Succesful!');
+        if ($response->successful()) { // check if statusCode == 201
+            return redirect()->route('todoList')->with('message', 'Succesful!');
         } else {
             return redirect()->back()->with('error', 'Failed!');
         }

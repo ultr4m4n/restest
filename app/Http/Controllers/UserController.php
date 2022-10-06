@@ -17,6 +17,7 @@ class UserController extends Controller
         $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
                         ->get('https://gorest.co.in/public/v2/users');
         $result = $response->object();
+        
         return view('users.index', compact('result'));
     }
 
@@ -27,7 +28,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request, [ // input validation
             'user_name'          => 'required|string|max:100',
             'user_email'         => 'required|email|max:100',
             'user_gender'         => 'required|string|max:10',
@@ -42,8 +43,8 @@ class UserController extends Controller
         $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
                     ->post('https://gorest.co.in/public/v2/users/', $user_array);
 
-        if ($response->ok() && isset($response->id)) {
-            return redirect()->back()->with('message', 'Succesful!');
+        if ($response->successful()) { // check if statusCode == 201
+            return redirect()->route('userList')->with('message', 'Succesful!');
         } else {
             return redirect()->back()->with('error', 'Failed!');
         }
@@ -95,7 +96,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $this->validate($request, [ // input validation
             'user_name'          => 'required|string|max:100',
             'user_email'         => 'required|email|max:100',
             'user_gender'         => 'required|string|max:10',
@@ -110,10 +111,11 @@ class UserController extends Controller
         $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
                     ->put('https://gorest.co.in/public/v2/users/'.$id, $user_array);
 
-        if ($response->ok() && isset($response->id)) {
-            return redirect()->back()->with('message', 'Succesful!');
+        if ($response->ok()) { // check if statusCode == 200
+            $user_details = $response->object();
+            return redirect()->back()->with('message', 'Succesful!', compact('user_details'));
         } else {
-            return redirect()->back()->with('error', 'Failed!');
+            return redirect()->back()->with('error', 'Failed!', );
         }
     }
 
@@ -128,7 +130,7 @@ class UserController extends Controller
         $response = Http::withToken('4f4afd61e9076f7a5ababc6d974c2b1c8621ae1b6ec7133efc6e86ac43280c2d')
                     ->delete('https://gorest.co.in/public/v2/users/'.$id);
 
-        if ($response->ok()) {
+        if ($response->successful()) { // check if statusCode == 204
             return redirect()->back()->with('message', 'Succesful!');
         } else {
             return redirect()->back()->with('error', 'Failed!');
